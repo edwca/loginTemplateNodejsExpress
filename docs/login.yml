@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: Registro endpoint
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      summary: Iniciar sesión con usuario y contraseña
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Login exitoso
+        '401':
+          description: Usuario o contraseña incorrectos

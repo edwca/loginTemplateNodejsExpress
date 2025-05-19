@@ -1,0 +1,85 @@
+openapi: 3.0.0
+info:
+  title: API de Usuarios
+  version: 1.0.0
+  description: Documentación de endpoints para gestión de usuarios
+
+paths:
+  /users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+        - Usuarios
+      responses:
+        '200':
+          description: Lista de usuarios obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: Error interno del servidor
+
+    post:
+      summary: Crear un nuevo usuario
+      tags:
+        - Usuarios
+      requestBody:
+        description: Datos para crear un usuario
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Datos inválidos enviados
+        '500':
+          description: Error interno del servidor
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123abc"
+        username:
+          type: string
+          example: "juanperez"
+        email:
+          type: string
+          format: email
+          example: "juanperez@example.com"
+      required:
+        - id
+        - username
+        - email
+
+    UserInput:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "juanperez"
+        email:
+          type: string
+          format: email
+          example: "juanperez@example.com"
+        password:
+          type: string
+          format: password
+          example: "12345678"
+      required:
+        - username
+        - email
+        - password
