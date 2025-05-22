@@ -1,0 +1,7 @@
+FROM ubuntu
+COPY . /phyton/
+COPY executable.sh /phyton/executable.sh
+RUN chmod +x /phyton/executable.sh
+WORKDIR /phyton
+RUN apt-get update && apt-get install -y python3 python3-pip
+ENTRYPOINT ["sh", "/phyton/executable.sh"]

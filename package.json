@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "dev:start": "nodemon server.js"
+    "docker:build": "docker build -t node-image .",
+    "docker:run": "docker run -p 3000:3000 node-image",
+    "docker:clean": "docker-compose down && node ./scripts/cleanDocker.js"
   },
   "devDependencies": {
     "express": "^5.1.0",

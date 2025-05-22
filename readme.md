@@ -31,3 +31,9 @@
     v
 [Envía datos a la ruta /api/login]  (que está manejada por authRoutes.js)
 ````
+
+### Docker
+````
+docker build -t node-image : Construimos la imagen a partir del dockerfile
+docker run -p 3000:3000 node-image : Este comando expone la app en una url desde el host
+````
