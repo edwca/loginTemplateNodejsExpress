@@ -11,7 +11,9 @@
     "start": "nodemon server.js",
     "docker:build": "docker build -t node-image .",
     "docker:run": "docker run -p 3000:3000 node-image",
-    "docker:clean": "docker-compose down && node ./scripts/cleanDocker.js"
+    "dc:delete-all": "docker-compose down --rmi all",
+    "dc:up": "docker-compose --env-file .env.qa up -d",
+    "docker:status": "docker images && docker ps -a"
   },
   "devDependencies": {
     "express": "^5.1.0",

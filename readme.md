@@ -33,7 +33,19 @@
 ````
 
 ### Docker
-````
+````bash
 docker build -t node-image : Construimos la imagen a partir del dockerfile
 docker run -p 3000:3000 node-image : Este comando expone la app en una url desde el host
+````
+
+### Docker compose
+````bash
+-d : quita el verbose de la terminal
+docker-compose --env-file .env.qa up -d  ## Ejecutar las pruebas con env desde .env.qa
+docker-compose down (bajar los contenedores, pero no perdiendo los volumenes)
+````
+
+### Comun
+````bash
+npm run docker:clean ## Elimina las imagenes y contenedores creados
 ````

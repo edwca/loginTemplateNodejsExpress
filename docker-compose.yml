@@ -13,12 +13,12 @@ services:
       - .:/app/ # Monta el directorio actual en /app dentro del contenedor
     command: sh /app/executable.sh # Comando que se ejecutará al iniciar el contenedor
 
-  # #Segundo servivio template redis
-  # redis:
-  #   image: redis:latest             # Usa la última imagen de Redis
-  #   container_name: redis           # Nombre del contenedor que vemos en consola
-  #   ports:
-  #     - "6379:6379"                 # Mapea puerto 6379 del contenedor al host
+  #Segundo servivio template redis
+  redis:
+    image: redis:latest # Usa la última imagen de Redis
+    container_name: redis # Nombre del contenedor que vemos en consola
+    ports:
+      - "6379:6379" # Mapea puerto 6379 del contenedor al host
 
   #Tercer servivio template nginx
   nginx:
@@ -27,3 +27,26 @@ services:
     ports:
       - "8080:80" # Mapea puerto 80 del contenedor al host
       - "443:443" # Mapea puerto 443 del contenedor al host
+    networks:
+      - css_default # Conecta a la red por defecto
+
+  #Cuarto contenedor con volumen mysql
+  mysql:
+    image: mysql # Usa la última imagen de MySQL
+    container_name: mysql # Nombre del contenedor que vemos en consola
+    ports:
+      - "3312:3306" # Mapea puerto 3306 del contenedor al host
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # Establece la contraseña de root para MySQL
+      MYSQL_DATABASE: ${MYSQL_DATABASE} # Crea una base de datos llamada "mydb"
+      MYSQL_USER: ${MYSQL_USER} # Crea un usuario llamado "user"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD} # Establece la contraseña para el usuario
+    volumes:
+      - db-data:/var/lib/mysql # Monta un volumen persistente para los datos de MySQL
+
+volumes:
+  db-data: # Define un volumen llamado "mysql"
+
+networks:
+  css_default:
+    external: true # Conecta a una red externa llamada "css_default"
